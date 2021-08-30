@@ -42,7 +42,7 @@ app.post('/signin', celebrate({
 app.use(auth);
 
 app.use('/articles', articlesRouter);
-app.use('/user', userRouter);
+app.use('/users', userRouter);
 
 app.use(errorLogger);
 

@@ -12,7 +12,7 @@ module.exports.createUser = (req, res, next) => {
       email, name, password: hash,
     }))
     .then(() => {
-      res.send({ data: email, name });
+      res.send({ user: email, name });
     })
     .catch((e) => {
       if (e.name === 'ValidationError') {
