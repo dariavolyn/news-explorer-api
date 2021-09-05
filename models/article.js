@@ -26,7 +26,7 @@ const articleSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (v) => {
-        const regexp = /^((http:\/\/)|(https:\/\/))(www\.)?[.-_~:/?%#[\]@!$&'()*+,;=\w]+\.[\w]#?/gm;
+        const regexp = /^((http:\/\/)|(https:\/\/))(www\.)?[_~:?%#[\]@!$&'()*+,;=/-\w.]+/;
         return regexp.test(v);
       },
     },
@@ -36,15 +36,13 @@ const articleSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (v) => {
-        const regexp = /^((http:\/\/)|(https:\/\/))(www\.)?[.-_~:/?%#[\]@!$&'()*+,;=\w]+\.[\w]#?/gm;
+        const regexp = /^((http:\/\/)|(https:\/\/))(www\.)?[_~:?%#[\]@!$&'()*+,;=/-\w.]+\.[\w]+#?/;
         return regexp.test(v);
       },
     },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    select: false,
   },
 });
 

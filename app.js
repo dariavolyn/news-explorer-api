@@ -13,7 +13,7 @@ const articlesRouter = require('./routes/articles');
 const userRouter = require('./routes/user');
 const { createUser, login } = require('./controllers/users');
 
-mongoose.connect('mongodb://localhost:27017/newsdb', {
+mongoose.connect(process.env.DB_CONNECTION_STRING, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -48,15 +48,15 @@ app.use(errorLogger);
 
 app.use(errors());
 
-app.use((err, res, next) => {
-  const { statusCode = 500, message } = err;
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
 
   res
     .status(statusCode)
     .send({
       message: statusCode === 500
         ? 'Error'
-        : message,
+        : err.message,
     });
   next();
 });

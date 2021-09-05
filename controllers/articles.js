@@ -1,14 +1,8 @@
 const Article = require('../models/article');
 
 module.exports.getArticles = (req, res, next) => {
-  Article.find({})
-    .then((data) => {
-      data.forEach((article) => {
-        if (article.owner.id === req.user._id) {
-          res.send({ article });
-        } next();
-      });
-    })
+  Article.find({ owner: req.user._id })
+    .then((article) => res.send({ data: article }))
     .catch((e) => {
       if (e.name === 'CastError') {
         const err = new Error('Invalid data');
@@ -51,7 +45,7 @@ module.exports.deleteArticle = (req, res, next) => {
   Article.findByIdAndRemove({ _id: req.params.id })
     .then((article) => {
       if (article) {
-        if (req.user._id === article.owner._id.toString()) {
+        if (req.user._id === article.owner.toString()) {
           res.send({ data: article });
         } else {
           const err = new Error('Invalid data');
