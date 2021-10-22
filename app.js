@@ -13,7 +13,7 @@ const articlesRouter = require('./routes/articles');
 const userRouter = require('./routes/user');
 const { createUser, login } = require('./controllers/users');
 
-mongoose.connect(process.env.DB_CONNECTION_STRING, {
+mongoose.connect('mongodb://localhost:27017/newsdb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
