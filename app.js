@@ -21,8 +21,6 @@ mongoose.connect('mongodb://localhost:27017/newsdb', {
   useUnifiedTopology: true,
 });
 
-console.log(process.env.DB_CONNECTION_STRING);
-
 app.use(express.json());
 
 app.use(requestLogger);
