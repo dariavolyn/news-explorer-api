@@ -21,6 +21,8 @@ mongoose.connect(process.env.DB_CONNECTION_STRING, {
   useUnifiedTopology: true,
 });
 
+console.log(process.env.DB_CONNECTION_STRING);
+
 app.use(express.json());
 
 app.use(requestLogger);
