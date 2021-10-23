@@ -1,4 +1,4 @@
 Back-end part of the final project.
 
-daria-news-explorer.students.nomoreparties.site
-api.daria-news-explorer.students.nomoreparties.site 
+dasha-news.students.nomoreparties.site
+api.dasha-news.students.nomoreparties.site 
