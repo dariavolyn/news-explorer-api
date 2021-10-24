@@ -14,6 +14,10 @@ const articlesRouter = require('./routes/articles');
 const userRouter = require('./routes/user');
 const { createUser, login } = require('./controllers/users');
 
+const allowedCors = [
+  'localhost:3000',
+];
+
 mongoose.connect('mongodb://localhost:27017/newsdb', {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -24,6 +28,14 @@ mongoose.connect('mongodb://localhost:27017/newsdb', {
 app.use(express.json());
 
 app.use(requestLogger);
+
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  next();
+});
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
