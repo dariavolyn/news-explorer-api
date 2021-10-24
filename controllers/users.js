@@ -5,21 +5,21 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const User = require('../models/user');
 
 module.exports.createUser = (req, res, next) => {
-  const { email, name, password } = req.body;
+  const { email, username, password } = req.body;
 
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
-      email, name, password: hash,
+      email, username, password: hash,
     }))
     .then(() => {
-      res.send({ user: email, name });
+      res.send({ user: email, username });
     })
     .catch((e) => {
-      if (e.name === 'ValidationError') {
+      if (e.username === 'ValidationError') {
         const err = new Error('Invalid data');
         err.statusCode = 400;
         next(err);
-      } else if (e.name === 'MongoError' || e.code === 11000) {
+      } else if (e.username === 'MongoError' || e.code === 11000) {
         const err = new Error('Email already in use');
         err.statusCode = 409;
         next(err);
@@ -37,10 +37,10 @@ module.exports.getProfile = (req, res, next) => {
       if (!user) {
         return res.status(404).send('User ID not found');
       }
-      return res.send({ email: user.email, name: user.name });
+      return res.send({ email: user.email, username: user.username });
     })
     .catch((e) => {
-      if (e.name === 'CastError') {
+      if (e.username === 'CastError') {
         const err = new Error('Invalid data');
         err.statusCode = 400;
         next(err);
