@@ -1,5 +1,4 @@
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, './.env') });
+require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -14,10 +13,6 @@ const articlesRouter = require('./routes/articles');
 const userRouter = require('./routes/user');
 const { createUser, login } = require('./controllers/users');
 
-const allowedCors = [
-  'localhost:3000',
-];
-
 mongoose.connect('mongodb://localhost:27017/newsdb', {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -28,22 +23,6 @@ mongoose.connect('mongodb://localhost:27017/newsdb', {
 app.use(express.json());
 
 app.use(requestLogger);
-
-app.use((req, res, next) => {
-  const { origin } = req.headers;
-  const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    return res.end();
-  }
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-  next();
-});
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
