@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
+const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
@@ -21,6 +22,7 @@ mongoose.connect('mongodb://localhost:27017/newsdb', {
 });
 
 app.use(express.json());
+app.use(cors());
 
 app.use(requestLogger);
 
@@ -34,7 +36,7 @@ app.post('/api/signup', celebrate({
   }),
 }), createUser);
 
-app.post('/signin', celebrate({
+app.post('/api/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
