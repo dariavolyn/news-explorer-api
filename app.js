@@ -24,6 +24,8 @@ app.use(express.json());
 
 app.use(requestLogger);
 
+app.post('*', (req) => console.log(req.originalUrl));
+
 app.post('/api/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().email(),
