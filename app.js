@@ -21,14 +21,12 @@ mongoose.connect('mongodb://localhost:27017/newsdb', {
   useUnifiedTopology: true,
 });
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 app.use(requestLogger);
 
-app.post('*', (req) => console.log(req.originalUrl));
-
-app.post('/api/signup', celebrate({
+app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().email(),
     password: Joi.string().required().min(8),
@@ -36,7 +34,7 @@ app.post('/api/signup', celebrate({
   }),
 }), createUser);
 
-app.post('/api/signin', celebrate({
+app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
