@@ -44,7 +44,7 @@ app.post('/signin', celebrate({
 app.use(auth);
 
 app.use('/articles', articlesRouter);
-app.use('/users', userRouter);
+app.use('/', userRouter);
 
 app.use(errorLogger);
 
