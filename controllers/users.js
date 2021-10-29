@@ -33,12 +33,13 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.getProfile = (req, res, next) => {
-  User.findById(req.user._id)
+  User.findById({ _id: req.params.id })
     .then((user) => {
       if (!user) {
         return res.status(404).send('User ID not found');
       }
-      return res.send({ email: user.email, username: user.username });
+      console.log(user);
+      return res.send({ user });
     })
     .catch((e) => {
       if (e.username === 'CastError') {
