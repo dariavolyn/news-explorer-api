@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
 // eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    const err = new Error('Authorization required');
+    const err = new Error('Authorization required b');
     err.statusCode = 401;
     next(err);
   }
@@ -14,9 +15,9 @@ module.exports = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, process.env.JWT_SECRET);
+    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
   } catch (e) {
-    const err = new Error('Authorization required');
+    const err = new Error('Authorization required p');
     err.statusCode = 401;
     next(err);
   }

@@ -5,19 +5,15 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const User = require('../models/user');
 
 module.exports.createUser = (req, res, next) => {
-  console.log('A');
   const { email, username, password } = req.body;
-  console.log('B');
   bcrypt.hash(password, 10)
     .then((hash) => {
       User.create({
         email, username, password: hash,
       });
-      console.log('C');
     })
     .then(() => {
       res.send({ user: email, username });
-      console.log('D');
     })
     .catch((e) => {
       if (e.username === 'ValidationError') {
