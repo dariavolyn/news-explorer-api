@@ -14,7 +14,7 @@ const articlesRouter = require('./routes/articles');
 const userRouter = require('./routes/user');
 const { createUser, login } = require('./controllers/users');
 
-mongoose.connect('mongodb://localhost:27017/newsdb', {
+mongoose.connect('mongodb://localhost:27017/daria-news-db', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
