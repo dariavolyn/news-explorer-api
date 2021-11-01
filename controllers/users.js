@@ -6,11 +6,12 @@ const User = require('../models/user');
 
 module.exports.createUser = (req, res, next) => {
   const { email, username, password } = req.body;
-  // bcrypt.hash(password, 10)
-  // .then((hash) => {
-  User.create({
-    email, username, password,
-  })
+  bcrypt.hash(password, 10)
+    .then((hash) => {
+      User.create({
+        email, username, password: hash,
+      });
+    })
     .then(() => {
       res.send({ email, username });
     })
