@@ -6,29 +6,28 @@ const User = require('../models/user');
 
 module.exports.createUser = (req, res, next) => {
   const { email, username, password } = req.body;
-  bcrypt.hash(password, 10)
-    .then((hash) => {
-      User.create({
-        email, username, password: hash,
-      })
-        .then(() => {
-          res.send({ email, username });
-        })
-        .catch((e) => {
-          if (e.username === 'ValidationError') {
-            const err = new Error('Invalid data');
-            err.statusCode = 400;
-            next(err);
-          } else if (e.username === 'MongoError' || e.code === 11000) {
-            const err = new Error('Email already in use');
-            err.statusCode = 409;
-            next(err);
-          } else {
-            const err = new Error('Error');
-            err.statusCode = 500;
-            next(err);
-          }
-        });
+  // bcrypt.hash(password, 10)
+  //  .then((hash) => {
+  User.create({
+    email, username, password,
+  })
+    .then(() => {
+      res.send({ email, username });
+    })
+    .catch((e) => {
+      if (e.username === 'ValidationError') {
+        const err = new Error('Invalid data');
+        err.statusCode = 400;
+        next(err);
+      } else if (e.username === 'MongoError' || e.code === 11000) {
+        const err = new Error('Email already in use');
+        err.statusCode = 409;
+        next(err);
+      } else {
+        const err = new Error('Error');
+        err.statusCode = 500;
+        next(err);
+      }
     });
 };
 
