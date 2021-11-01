@@ -26,14 +26,13 @@ app.use(express.json());
 
 app.use(requestLogger);
 
-app.post('/signup', createUser);
-// celebrate({
-//   body: Joi.object().keys({
-//     email: Joi.string().email(),
-//     password: Joi.string().required().min(8),
-//     username: Joi.string().required().min(2).max(30),
-//   }),
-// }),
+app.post('/signup', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().email(),
+    password: Joi.string().required().min(8),
+    username: Joi.string().required().min(2).max(30),
+  }),
+}), createUser);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
