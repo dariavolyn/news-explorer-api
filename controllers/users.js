@@ -6,14 +6,13 @@ const User = require('../models/user');
 
 module.exports.createUser = (req, res, next) => {
   const { email, username, password } = req.body;
-  bcrypt.hash(password, 10)
-    .then((hash) => {
-      User.create({
-        email, username, password: hash,
-      });
-    })
+  // bcrypt.hash(password, 10)
+  // .then((hash) => {
+  User.create({
+    email, username, password,
+  })
     .then(() => {
-      res.send(email, username);
+      res.send({ email, username });
     })
     .catch((e) => {
       if (e.username === 'ValidationError') {
