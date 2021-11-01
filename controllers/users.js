@@ -10,25 +10,25 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => {
       User.create({
         email, username, password: hash,
-      });
-    })
-    .then(() => {
-      res.send({ email, username });
-    })
-    .catch((e) => {
-      if (e.username === 'ValidationError') {
-        const err = new Error('Invalid data');
-        err.statusCode = 400;
-        next(err);
-      } else if (e.username === 'MongoError' || e.code === 11000) {
-        const err = new Error('Email already in use');
-        err.statusCode = 409;
-        next(err);
-      } else {
-        const err = new Error('Error');
-        err.statusCode = 500;
-        next(err);
-      }
+      })
+        .then(() => {
+          res.send({ email, username });
+        })
+        .catch((e) => {
+          if (e.username === 'ValidationError') {
+            const err = new Error('Invalid data');
+            err.statusCode = 400;
+            next(err);
+          } else if (e.username === 'MongoError' || e.code === 11000) {
+            const err = new Error('Email already in use');
+            err.statusCode = 409;
+            next(err);
+          } else {
+            const err = new Error('Error');
+            err.statusCode = 500;
+            next(err);
+          }
+        });
     });
 };
 
