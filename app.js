@@ -28,7 +28,7 @@ const allowedCors = [
 ];
 
 app.use((req, res, next) => {
-  const { origin } = req.headers;
+  const { referrer } = req.headers;
   const { method } = req;
   const requestHeaders = req.headers['access-control-request-headers'];
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
@@ -37,8 +37,8 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', requestHeaders);
     return res.end();
   }
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
+  if (allowedCors.includes(referrer)) {
+    res.header('Access-Control-Allow-Origin', referrer);
   }
   next();
 });
