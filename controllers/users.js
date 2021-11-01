@@ -12,7 +12,8 @@ module.exports.createUser = (req, res, next) => {
         email, username, password: hash,
       });
     })
-    .then(() => {
+    .then((u) => {
+      console.log(u);
       res.send({ user: email, username });
     })
     .catch((e) => {
