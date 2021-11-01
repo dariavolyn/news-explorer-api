@@ -21,27 +21,27 @@ mongoose.connect('mongodb://localhost:27017/daria-news-db', {
   useUnifiedTopology: true,
 });
 
-// const allowedCors = [
-//   'https://daria-news.students.nomoreparties.site/',
-//   'http://daria-news.students.nomoreparties.site/',
-//   'localhost:3000',
-// ];
+const allowedCors = [
+  'https://daria-news.students.nomoreparties.site',
+  'http://daria-news.students.nomoreparties.site',
+  'localhost:3000',
+];
 
-// app.use((req, res, next) => {
-//   const { referrer } = req.headers;
-//   const { method } = req;
-//   const requestHeaders = req.headers['access-control-request-headers'];
-//   const DEFAULT_ALLOWED_METHODS = 'POST';
-//   if (method === 'OPTIONS') {
-//     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-//     res.header('Access-Control-Allow-Headers', requestHeaders);
-//     return res.end();
-//   }
-//   if (allowedCors.includes(referrer)) {
-//     res.header('Access-Control-Allow-Origin', referrer);
-//   }
-//   next();
-// });
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  const { method } = req;
+  const requestHeaders = req.headers['access-control-request-headers'];
+  const DEFAULT_ALLOWED_METHODS = 'POST';
+  if (method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    return res.end();
+  }
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  next();
+});
 
 app.use(cors());
 app.use(express.json());
