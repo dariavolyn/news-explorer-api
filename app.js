@@ -21,6 +21,20 @@ mongoose.connect('mongodb://localhost:27017/daria-news-db', {
   useUnifiedTopology: true,
 });
 
+const allowedCors = [
+  'https://daria-news.students.nomoreparties.site/',
+  'http://daria-news.students.nomoreparties.site/',
+  'localhost:3000',
+];
+
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  next();
+});
+
 app.use(cors());
 app.use(express.json());
 
