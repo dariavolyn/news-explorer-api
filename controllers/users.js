@@ -34,7 +34,6 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.getProfile = (req, res, next) => {
   const id = req.user._id;
-  console.log(id, req.user);
   User.findById(id)
     .then((user) => {
       if (!user) {
@@ -63,7 +62,7 @@ module.exports.login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' });
-      res.send({ token });
+      res.send({ token, user });
     })
     .catch(() => {
       const err = new Error('Invalid email or password');

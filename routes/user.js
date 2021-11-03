@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/me', celebrate({
   params: Joi.object().keys({
-    id: Joi.string().length(24).hex(),
+    id: Joi.string().length(24),
   }),
 }), getProfile);
 
