@@ -23,7 +23,7 @@ module.exports.createArticle = (req, res, next) => {
   const owner = req.user._id;
 
   Article.create({
-    description, keyword, owner, publishedAt, source: source.name, title, url, urlToImage,
+    description, keyword, owner, publishedAt, source, title, url, urlToImage,
   })
     .then((article) => {
       res.send({ article });
