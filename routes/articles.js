@@ -7,14 +7,14 @@ router.get('/', getArticles);
 
 router.post('/', celebrate({
   body: Joi.object().keys({
-    date: Joi.string().required(true),
-    title: Joi.string().required(true),
-    text: Joi.string().required(true),
-    source: Joi.string().required(true),
+    description: Joi.string().required(true),
     keyword: Joi.string().required(true),
     owner: Joi.string(),
-    link: Joi.string().required(true),
-    image: Joi.string().required(true),
+    publishedAt: Joi.string().required(true),
+    src: Joi.string().required(true),
+    title: Joi.string().required(true),
+    url: Joi.string().required(true),
+    urlToImage: Joi.string().required(true),
   }),
 }), createArticle);
 
