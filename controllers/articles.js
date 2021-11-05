@@ -18,11 +18,12 @@ module.exports.getArticles = (req, res, next) => {
 
 module.exports.createArticle = (req, res, next) => {
   const {
-    description, keyword, publishedAt, src, title, url, urlToImage,
+    description, keyword, publishedAt, source, title, url, urlToImage,
   } = req.body;
+  const owner = req.user._id;
 
   Article.create({
-    description, keyword, owner: req.user._id, publishedAt, src, title, url, urlToImage,
+    description, keyword, owner, publishedAt, source: source.name, title, url, urlToImage,
   })
     .then((article) => {
       res.send({ article });

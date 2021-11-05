@@ -11,7 +11,7 @@ router.post('/', celebrate({
     keyword: Joi.string().required(true),
     owner: Joi.string(),
     publishedAt: Joi.string().required(true),
-    src: Joi.string().required(true),
+    source: Joi.string().required(true),
     title: Joi.string().required(true),
     url: Joi.string().required(true),
     urlToImage: Joi.string().required(true),
