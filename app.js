@@ -25,7 +25,8 @@ mongoose.connect('mongodb://localhost:27017/daria-news-db', {
 const allowedCors = [
   'https://daria-news.students.nomoreparties.site',
   'http://daria-news.students.nomoreparties.site',
-  'localhost:3000',
+  'http://localhost:3000',
+  'http://localhost:3001',
 ];
 
 app.use(cors(({ origin: allowedCors })));

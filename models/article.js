@@ -9,11 +9,11 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: {
+  text: {
     type: String,
     required: true,
   },
-  publishedAt: {
+  date: {
     type: String,
     required: true,
   },
@@ -21,7 +21,7 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  url: {
+  link: {
     type: String,
     required: true,
     validate: {
@@ -31,7 +31,7 @@ const articleSchema = new mongoose.Schema({
       },
     },
   },
-  urlToImage: {
+  image: {
     type: String,
     required: true,
     validate: {
@@ -43,6 +43,9 @@ const articleSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+    select: false,
   },
 });
 
