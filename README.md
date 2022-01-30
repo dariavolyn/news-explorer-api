@@ -1,4 +1,4 @@
 Back-end part of the final project.
 
-daria-news.students.nomoreparties.sbs
-api.daria-news.students.nomoreparties.sbs
+instance.one.students.nomoreparties.sbs
+api.instance.one.students.nomoreparties.sbs
