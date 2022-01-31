@@ -24,7 +24,7 @@ mongoose.connect('mongodb://localhost:27017/daria-news-db', {
 
 const allowedCors = [
   'https://instance.one.students.nomoreparties.sbs',
-  'http://instance.one.students.nomoreparties.sbs',
+  'https://www.instance.one.students.nomoreparties.sbs',
   'http://localhost:3000',
   'http://localhost:3001',
 ];
